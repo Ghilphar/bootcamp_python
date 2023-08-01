@@ -1,5 +1,5 @@
 from datetime import datetime
-from recipe_2 import Recipe
+from recipe import Recipe
 
 class Book:
     def __init__(self, name):

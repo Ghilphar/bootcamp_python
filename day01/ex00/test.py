@@ -1,4 +1,4 @@
-from recipe_2 import Recipe
+from recipe import Recipe
 from book import Book
 from time import sleep
 
