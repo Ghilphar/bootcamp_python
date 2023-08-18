@@ -43,23 +43,30 @@ class Bank(object):
             @amount: float(amount) amount to transfer
             @return True if success, False if an error occured
         """
-        if not isinstance(origin, str) or not isinstance(dest, str):
+        if not isinstance(origin, str) or not isinstance(dest, str) or not isinstance(amount, (int, float)):
             return False
         originAccount = next((account for account in self.accounts if account.name == origin), None)
         destAccount = next((account for account in self.accounts if account.name == dest), None)
-
+        if not originAccount or not destAccount:
+            return False
         if (not self.checkAccount(originAccount)) or (not self.checkAccount(destAccount)):
             return False
-
+        if (amount < 0) or (originAccount.value < amount):
+            return False
+        if originAccount == destAccount:
+            return True
+        originAccount.value -= amount
+        destAccount.value += amount
+        return True
 
     def checkAccount(self, account):
         attributes = account.__dict__
         
         if len(attributes) % 2 == 0:
             return False
-        if any(attribute.startwith("b") for attribute in attributes.keys()):
+        if any(attribute.startswith("b") for attribute in attributes.keys()):
             return False
-        if not any(attribute.startwith("zip") or attribute.startwith("addr") for attribute in attributes.keys()):
+        if not any(attribute.startswith("zip") or attribute.startswith("addr") for attribute in attributes.keys()):
             return False
         if not all(hasattr(account, attribute) for attribute in ["name", "id", "value"]):
             return False
@@ -76,4 +83,29 @@ class Bank(object):
         @name: str(name) of the account
         @return True if success, False if an error occured
         """
-        # ... Your code ...
+        if not isinstance(name, str):
+            return False
+        recoverAccount = next((account for account in self.accounts if account.name == name), None)
+        if not recoverAccount:
+            return False
+        recoverAccountAttributes = recoverAccount.__dict__
+        for attribute in recoverAccountAttributes.keys():
+            if attribute.startswith("b"):
+                del recoverAccount.attribute
+        if not any(attribute.startswith("zip") for attribute in recoverAccountAttributes.keys()):
+            recoverAccount.zip_recover = True
+        if not any(attribute.startswith("addr") for attribute in recoverAccountAttributes.keys()):
+            recoverAccount.addr_recover = "newAddress"
+        if not hasattr(recoverAccount, "id"):
+            recoverAccount.id = 999
+        if not hasattr(recoverAccount, "value"):
+            recoverAccount.value = 1000
+        if not isinstance(recoverAccount.id, int):
+            recoverAccount.id = 888
+        if not isinstance(recoverAccount.value, (int, float)):
+            recoverAccount.value = 1000
+        if len(recoverAccountAttributes) % 2 == 0:
+            recoverAccount.fixAttribute = True
+        return True
+        
+        
