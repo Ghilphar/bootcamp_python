@@ -36,6 +36,12 @@ print("\n%s in action\n" % "Map")
 def double(x):
     return x * 2
 
+def add_number_5(aNumber):
+    if isinstance(aNumber, (int, float)):
+        return aNumber + 5
+    else:
+        raise Exception("aNumber Is not a number")
+
 # Apply the function to each element in the list using map
 numbers = [1, 2, 3, 4, 5]
 doubled_numbers = list(map(double, numbers))
@@ -45,6 +51,7 @@ print(doubled_numbers)  # Output: [2, 4, 6, 8, 10]
 # Apply the function to each element in the list using map
 numbers = [1, 2, 3, 4, 5]
 doubled_numbers = list(ft_map(double, numbers))
+#doubled_numbers = list(ft_map(add_number_5, "str"))
 #doubled_numbers = list(ft_map(double, True))
 
 print(doubled_numbers)  # Output: [2, 4, 6, 8, 10]
@@ -77,7 +84,7 @@ def max_of_two(x, y):
     return x if x > y else y
 
 # Apply the function cumulatively to the elements in the list using reduce
-numbers = [1, 2, 3, 4, 5]
+numbers = [1, 2, 3, 4, 5]#, "ewr"]
 sum_of_numbers = reduce(add, numbers)
 print(sum_of_numbers)  # Output: 15 (1 + 2 + 3 + 4 + 5)
 
@@ -117,3 +124,4 @@ print(unique_numbers)  # Output: [1, 3, 6]
 unique_numbers = list(ft_filter(is_first_occurrence, numbers))
 print(unique_numbers)  # Output: [1, 3, 6]
 
+#lst = ['H', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r', 'l', 'd']

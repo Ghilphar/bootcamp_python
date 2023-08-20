@@ -10,15 +10,16 @@ def ft_reduce(function_to_apply, iterable):
     A value, of same type of elements in the iterable parameter.
     None if the iterable can not be used by the function.
     """
+    if not callable(function_to_apply):
+        raise Exception(f"{type(function_to_apply)} object is not callable")
+
     try:
         value = iterable[0]
         for element in iterable[1:]:
-            value = function_to_apply(value, element)
+            try:
+                value = function_to_apply(value, element)
+            except Exception:
+                return None
         return value
-        #it = iter(iterable)
-        #value = next(it)
-        #for element in it:
-        #    value = function_to_apply(value, element)
-        #return value
     except TypeError:
         return None
