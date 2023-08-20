@@ -1,5 +1,4 @@
 class Evaluator:
-    @staticmethod
     def zip_evaluate(coefs, words):
         if not isinstance(coefs, list) or not isinstance(words, list):
             raise TypeError("words and coefs should from type list.")
@@ -11,7 +10,6 @@ class Evaluator:
             sum += len(word) * coef
         return sum
 
-    @staticmethod
     def enumerate_evaluate(coefs, words):
         if not isinstance(coefs, list) or not isinstance(words, list):
             raise TypeError("words and coefs should from type list.")
