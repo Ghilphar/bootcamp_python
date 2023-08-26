@@ -1,5 +1,3 @@
-import pprint
-
 def ft_reduce(function_to_apply, iterable):
     """
     Apply function of two arguments cumulatively.
@@ -12,14 +10,19 @@ def ft_reduce(function_to_apply, iterable):
     """
     if not callable(function_to_apply):
         raise Exception(f"{type(function_to_apply)} object is not callable")
-
     try:
-        value = iterable[0]
-        for element in iterable[1:]:
-            try:
-                value = function_to_apply(value, element)
-            except Exception:
-                return None
-        return value
-    except TypeError:
+        iterator = iter(iterable)
+    except Exception as e:
+        raise Exception(f"{iterable} object is not an iterable.")
+    try:
+        value = next(iterator)
+    except:
         return None
+    for element in iterator:
+        try:
+            value = function_to_apply(value, element)
+        except Exception as e:
+            return None
+    
+    return value
+

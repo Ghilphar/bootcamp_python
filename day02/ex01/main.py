@@ -7,19 +7,24 @@
 
 
 def what_are_the_vars(*args, **kwargs):
-    for i in range(len(args)):
-        if f'var_{i}' in kwargs:
+    """
+    """
+    object = ObjectC()
+    for index, value in enumerate(args):
+        setattr(object, f"var_{index}", value)
+    
+    for key, value in kwargs.items():
+        if hasattr(object, key):
             return None
-    return ObjectC(*args, **kwargs)
+        setattr(object, key, value)
+    return object
+    
 
 class ObjectC(object):
-    def __init__(self, *args, **kwargs):
-        for i, value in enumerate(args):
-            setattr(self, f'var_{i}', value)
-        for key, value in kwargs.items():
-            if hasattr(self, key):
-                return None
-            setattr(self, key, value)
+    def __init__(self):
+        pass
+
+
 
 def doom_printer(obj):
     if obj is None:

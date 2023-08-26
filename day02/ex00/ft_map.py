@@ -11,17 +11,13 @@ def ft_map(function_to_apply, iterable):
     if not callable(function_to_apply):
         raise Exception(f"{type(function_to_apply)} object is not callable")
     try:
-        some_object_iterator = iter(iterable)
+        iter(iterable)
     except Exception as e:
-        raise e
+        raise Exception(f"{iterable} object is not an iterable.")
 
-    #try:
     for i in iterable:
         try:
             yield function_to_apply(i)
         except Exception as e:
-            #print("here")
             return None
-    #except TypeError:
-    #    return None
     
