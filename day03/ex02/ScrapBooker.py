@@ -2,8 +2,14 @@ import numpy as np
 
 class ScrapBooker:
 
+    def __init__(self):
+        pass
+
     def crop(self, array, dim, position=(0, 0)):
         """Return a cropped version of the input array based on the specified dimensions and position."""
+
+        if not isinstance(array, np.ndarray):
+            return None
 
         end_row = position[0] + dim[0]
         end_col = position[1] + dim[1]
@@ -16,6 +22,8 @@ class ScrapBooker:
     
     def thin(self, array, n, axis):
         """Delete every n-th pixel/row/column (depending on axis) from the array."""
+        if not isinstance(array, np.ndarray):
+            return None
 
         if n <= 0 or n > array.shape[axis] or axis not in [0, 1]:
             return None
@@ -27,6 +35,9 @@ class ScrapBooker:
     def juxtapose(self, array, n, axis):
         """Replicate the input array n times along the specified axis."""
 
+        if not isinstance(array, np.ndarray):
+            return None
+
         if n <= 0 or axis not in [0, 1]:
             return None
         juxtaposed_array = np.concatenate([array] * n, axis=axis)
@@ -34,7 +45,13 @@ class ScrapBooker:
     
     def mosaic(self, array, dim):
         """Create a mosaic of the input array based on the specified dimensions."""
+
+        if not isinstance(array, np.ndarray):
+            return None
         
+        if not isinstance(dim, tuple) or len(dim) != 2:
+            return None
+
         if dim[0] <= 0 or dim[1] <= 0:
             return None
         mosaic_array = np.title(array, dim)

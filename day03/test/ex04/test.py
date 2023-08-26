@@ -4,7 +4,7 @@ from Kmeans import KmeansClustering
 
 
 try:
-    data = np.loadtxt("./solar_system_census.csv", delimiter=',', skiprows=1)
+    data = np.loadtxt("../ressources/solar_system_census.csv", delimiter=',', skiprows=1)
     kmeans = KmeansClustering(max_iter=100, ncentroid=4)
     kmeans.fit(data)
     predicted_clusters = kmeans.predict(data)
