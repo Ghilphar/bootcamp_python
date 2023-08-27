@@ -1,6 +1,10 @@
 import pandas as pd
 
 def youngest_fellah(df: pd.DataFrame, year:int) -> dict:
+
+    if not isinstance(df, pd.DataFrame) or not isinstance(year, int):
+        return None
+
     # Filter the dataframe for the given year
     df_year = df[df["Year"] == year]
     
