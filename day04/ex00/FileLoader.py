@@ -11,6 +11,9 @@ class FileLoader:
             return None
     
     def display(self, df, n):
+        if not isinstance(n, int):
+            print("Please provide a valid index.")
+            return
         if isinstance(df, pd.DataFrame):
             if n > 0:
                 print(df.head(n))

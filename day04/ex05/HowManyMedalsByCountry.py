@@ -1,16 +1,33 @@
 import pandas as pd
 
 def how_many_medals_by_country(df: pd.DataFrame, country: str) -> dict:
-    team_sports = ['Basketball', 'Football', 'Tug-Of-War', 'Handball', 'Water Polo', 
-                    'Hockey', 'Rowing', 'Volleyball', 'Synchronized Swimming', 
-                    'Baseball', 'Rugby', 'Lacrosse', 'Polo']
+
+    if not isinstance(df, pd.DataFrame) or not isinstance(country, str):
+        return None
     
-    country_medals = df[(df["Team"] == country) & (~df["Medal"].isna())]
-    country_medals = country_medals.drop_duplicates(subset=["Year", "Event", "Medal"])
+    #team_sports = ['Basketball', 'Football', 'Tug-Of-War', 'Handball', 'Water Polo', 
+    #                'Hockey', 'Rowing', 'Volleyball', 'Synchronized Swimming', 
+    #                'Baseball', 'Rugby', 'Lacrosse', 'Polo']
+    #
+    team_sports = ['Basketball', 'Football',  'Tug-Of-War', 'Badminton', 'Sailing',
+                    'Handball', 'Water Polo', 'Hockey', 'Rowing', 'Bobsleigh', 'Softball',
+                    'Volleyball', 'Synchronized Swimming', 'Baseball', 'Rugby Sevens', 'Rugby',
+                    'Lacrosse', 'Polo']
+
+
+    country_medals = df[(df["Team"] == country) & (~df["Medal"].isna()) & (df["Year"] == 2004)] # TODO supprimer la fin (Year)
+    #country_medals.drop_duplicates(subset=["Sport"], keep='first')
+
+    team_sports_df = country_medals[country_medals['Sport'].isin(team_sports)]
+    team_sports_df = team_sports_df.drop_duplicates(subset=['Sport', 'Event', 'Year', 'Medal'])
+    non_team_sports_df = country_medals[~country_medals['Sport'].isin(team_sports)]
+
+    #.drop_duplicates(subset=["Year", "Event", "Medal"])
+
 
     medals_dict = {}
 
-    for _, row in country_medals.iterrows():
+    for _, row in non_team_sports_df.iterrows():
         year = row["Year"]
         medal = row["Medal"][0]
 
