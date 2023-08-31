@@ -3,7 +3,10 @@ import numpy as np
 class ColorFilter:
     def invert(self, array):
         """Invert the color of the image"""
-        inverted_array = array.copy()
+        array_rgb = array[:, :, :3]
+
+        inverted_array = array_rgb.copy()
+
 
         if array.dtype == np.float32 or array.dtype == np.float64:
             inverted_array = 1.0 - inverted_array
@@ -50,17 +53,19 @@ class ColorFilter:
     def to_grayscale(self, array, filter, **kwargs):
         """Applies a greyscale filter to the image."""
 
+        array_rgb = array[:, :, :3]
+
         if filter in ["mean", "m"]:
-            grayscale_array = array.sum(axis=2, keepdims = True) / 3.0
+            grayscale_array = array_rgb.sum(axis=2, keepdims = True) / 3.0
         elif filter in ["weight", "w"]:
-            if "weight" in kwargs and sum(kwargs["weights"]) == 1:
+            if "weights" in kwargs and int(sum(kwargs["weights"])) == 1:
                 weights = kwargs["weights"]
-                grayscale_array = np.dot(array, weights).reshape(array.shape[0], array.shape[1], 1)
+                grayscale_array = np.dot(array_rgb, weights).reshape(array_rgb.shape[0], array_rgb.shape[1], 1)
             else:
                 return None
         else:
             return None
         
-        grayscale_array = np.broadcast_to(grayscale_array, array.shape)
+        grayscale_array = np.broadcast_to(grayscale_array, array_rgb.shape)
         
-        return grayscale_array.astype(array.dtype)
+        return grayscale_array.astype(array_rgb.dtype)

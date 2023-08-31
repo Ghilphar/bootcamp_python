@@ -18,9 +18,16 @@ arr2_transform = spb.thin(arr2, 3, 0)
 print(arr2_transform, (arr2_transform.dtype))
 
 
+print("Mosaic")
+
+arr4 = np.arange(1, 10).reshape((3, 3))
+arr4_mosaic= spb.mosaic(arr4, (2, 2))
+print(arr4)
+print(arr4_mosaic)
+
 arr3 = np.array([[1, 2, 3],[1, 2, 3],[1, 2, 3]])
 
-arr3_tyransform = spb.juxtapose(arr3, 3, 1)
+arr3_transform = spb.juxtapose(arr3, 3, 1)
 print(arr3)
-print(arr3_tyransform)
+print(arr3_transform)
 

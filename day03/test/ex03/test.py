@@ -13,10 +13,10 @@ def main():
     cf = ColorFilter()
 
     # Load the image
-    arr = imp.load("./elon_canaGAN.png")
+    arr = imp.load("../ressources/elon_canaGAN.png")
     # Check if the image was loaded successfully
     if arr is not None:
-        # Display the original image
+        #Display the original image
         print("Original Image:")
         imp.display(arr)
 
@@ -54,6 +54,7 @@ def main():
         grayscale_weighted_image = cf.to_grayscale(arr, 'weight', weights=(0.3, 0.5, 0.2))
         print("Grayscale (Weighted) Image:")
         imp.display(grayscale_weighted_image)
+
     else:
         print("Failed to load the image.")
 
